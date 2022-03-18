@@ -19,7 +19,7 @@ def plotCompass(fileName='tweets_with_sentiment.csv'):
 	fontLabel = {
 					'color':  'black',
 					'weight': 'normal',
-					'size': 6,
+					'size': 9,
 					}
 
 	x_axis = []
@@ -27,6 +27,7 @@ def plotCompass(fileName='tweets_with_sentiment.csv'):
 	person_labels = []
 	plt_axis = [-1, 1, -1, 1]
 
+	plt.figure(figsize=(10, 10))
 	plt.axhline(0, color='black')
 	plt.axvline(0, color='black')
 	txt = []
@@ -42,6 +43,7 @@ def plotCompass(fileName='tweets_with_sentiment.csv'):
 					person_labels.append(row['username'])
 					txt.append(plt.text(x,y,row['username'], fontdict=fontLabel))
 					
+	
 	plt.margins(2,2)
 	plt.axis(plt_axis)
 	plt.scatter(x_axis, y_axis)
@@ -51,11 +53,14 @@ def plotCompass(fileName='tweets_with_sentiment.csv'):
 	plt.fill_between([0,1], -1, 0, alpha=0.3, color='#FFEC73')  #Yellow
 
 	if fileName=='tweets_with_sentiment.csv':
-		plt.title(label='Political Compass - Training', fontdict=fontTitle)
+		plt.title(label='Political Compass - Real Data', fontdict=fontTitle)
 	else:
-		plt.title(label='Political Compass - Test', fontdict=fontTitle)
+		plt.title(label='Political Compass - Test Data', fontdict=fontTitle)
 	plt.xlabel(xlabel='Economic policy', fontdict=fontAxis)
 	plt.ylabel(ylabel='Social policy', fontdict=fontAxis)
+	
 	plt.grid(True)
+	
 	adjust_text(txt, arrowprops=dict(arrowstyle="->", color='r', lw=0.5), precision=0.01) # force_text=(0.3, 0.5) force_points=(0.5, 0.5)
+	
 	plt.show()
