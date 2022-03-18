@@ -20,6 +20,7 @@ topic_labels = {}
 train_set_for_plot = []
 sentiment_labels = {}
 result_comparison_dict = {}
+tweet_topic_counter_dict = {}
 # Igrati se sa faktorima ovde : kernel='rbf', degree=3, gamma='scale', coef0=0.0, tol=0.001, C=1.0, epsilon=0.01, shrinking=True, cache_size=500, verbose=True, max_iter=- 1
 support_vector_machine_economy = svm.SVR(verbose=True)
 support_vector_machine_social = svm.SVR(verbose=True)
@@ -70,6 +71,10 @@ with open('tweets_with_sentiment.csv', newline='', encoding='utf-8') as csvfile:
                 else:
                     index+=1
                     continue
+            if row['topic'] not in tweet_topic_counter_dict:
+                tweet_topic_counter_dict[row['topic']] = 1
+            else:
+                tweet_topic_counter_dict[row['topic']] += 1
             x_users.append(row['username'])
             x_train.append([topic_labels[row['topic']], sentiment_labels[row['sentiment_label']]])
             x = float(row['economic_policy'])
@@ -92,6 +97,9 @@ with open('tweets_with_sentiment.csv', newline='', encoding='utf-8') as csvfile:
 # print(y_train_social)
 # print(len(x_test))
 # print(x_test)
+for key in tweet_topic_counter_dict.keys():
+    print(f"{key}: {tweet_topic_counter_dict[key]}")
+print("Total: ",len(x_train))
 
 # Ideja obucavanje jeste ( x_train -> niz tvitova iz kojih je izvucena tema i sentiment tvita i to predstavlja ulaz (tema,sen); izlaz jeste kordinata po pojedinacnoj osovini, zato imamo dve SVM)
 support_vector_machine_economy.fit(x_train, y_train_economy)
@@ -211,4 +219,4 @@ with open('train_set.csv', 'w', encoding='utf8', newline='') as f:
 
 #
 # plotCompass('train_set.csv')
-# plotCompass('usernames_on_compass.csv')
+plotCompass('usernames_on_compass.csv')
