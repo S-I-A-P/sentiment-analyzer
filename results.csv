@@ -1,0 +1,35 @@
+username,real_x,real_y,result_x,result_y,hit
+Zoran Tomić,0.5,0.7,0.74,1.0,False
+Вјерица Радета,0.7,1.0,0.47,0.75,True
+Владимир Ђукановић,0.8,0.9,0.6,0.94,True
+Marijan Rističević,0.4,0.8,0.68,1.0,False
+Aleksandar Šapić,0.0,0.4,0.68,1.0,False
+Tomislav Momirovic,0.1,0.4,0.4,0.75,False
+Nemanja Šarović,0.7,0.4,0.56,0.95,False
+Šutanovac Dragan,0.4,-0.1,0.47,0.72,False
+Бошко Обрадовић,0.4,0.8,0.53,0.94,True
+Aris Movsesijan,0.3,-0.6,0.47,0.72,False
+Nova stranka,0.4,-0.5,0.47,0.74,False
+Saša Radulović,0.2,0.6,0.71,1.0,False
+ДВЕРИ,0.3,0.8,0.4,0.75,True
+Hana Adrović,0.4,0.4,0.47,0.72,False
+Sergej Trifunović,0.1,-1.0,0.47,0.82,False
+Vuk Jeremić,0.0,-0.2,0.47,0.75,False
+Borko Stefanović,0.1,-0.3,0.56,0.95,False
+Marinika Tepić,0.1,-0.4,0.68,1.0,False
+Dragan Djilas,0.3,-0.5,0.74,1.0,False
+Narodna stranka,-0.2,-0.7,0.47,0.89,False
+Nina Stojaković,0.0,1.0,0.47,0.72,False
+Anna Oreg,0.1,-0.8,0.47,0.72,False
+Ђурађ Јакшић,0.8,1.0,0.6,0.94,True
+"Prof. dr Vladimir Vuletić, #CNB",0.3,0.5,0.64,0.97,False
+Stranka slobode i pravde,-0.5,0.0,0.71,1.0,False
+Aleksandar Šešelj,0.8,0.7,0.56,0.95,True
+Miroslav Aleksic,0.2,0.2,0.56,0.95,False
+ДЈБ - Суверенисти,0.2,0.6,0.71,1.0,False
+Aна Брнабић,0.1,0.5,0.68,1.0,False
+Марко Ђурић,0.3,0.9,0.68,1.0,False
+Др Владимир Орлић,0.4,0.8,0.74,1.0,False
+Александар Вучић,0.6,0.8,0.68,1.0,True
+Небојша Стефановић,0.5,0.8,0.68,1.0,True
+Demokratska stranka,0.4,-0.7,0.61,0.98,False
