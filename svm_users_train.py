@@ -1,10 +1,12 @@
 from sklearn import svm
 
-from util import approximate, calculate_avg
+from svm_users.plot_function import compass_plot
+from util import approximate, calculate_avg, format_data_for_plot
 from const import topics
 from svm_users_extract_data import extract_data
 
 train_data_percentage = 0.8
+test_data_percentage = 0.1
 
 train_data_x = []
 train_data_economic_y = []
@@ -26,6 +28,8 @@ train_data_limit = len(handle_socioeconomic_data_map) * train_data_percentage
 print('Total data: %d' % len(handle_socioeconomic_data_map))
 print('Train data limit: %d ' % train_data_limit)
 
+test_data_limit = len(handle_socioeconomic_data_map) * test_data_percentage
+
 # form vectors: a vector contains user's sentiment on topics (14 dimensions)
 for index, handle in enumerate(handle_topic_map):
     topic_tweet_data_map = handle_topic_map[handle]
@@ -40,7 +44,7 @@ for index, handle in enumerate(handle_topic_map):
         topic_vector.append(value)
 
     # form svm train and test vectors
-    if index <= train_data_limit:
+    if index >= test_data_limit:
         train_data_x.append(topic_vector)
         train_data_economic_y.append(socioeconomic_data.economic_policy)
         train_data_social_y.append(socioeconomic_data.social_policy)
@@ -70,6 +74,12 @@ results_economic = support_vector_machine_economy.predict(test_data_x)
 results_social = support_vector_machine_social.predict(test_data_x)
 results_economic_rounded = support_vector_machine_economy_rounded.predict(test_data_x)
 results_social_rounded = support_vector_machine_social_rounded.predict(test_data_x)
+
+# plot results
+plot_results = format_data_for_plot(test_users, results_economic, results_social)
+compass_plot(plot_results)
+plot_actual = format_data_for_plot(test_users, test_data_economic_y, test_data_social_y)
+compass_plot(plot_actual)
 
 # round values to -1, -0.5, 0, 0.5, 1
 results_economic_rounded_rounded = approximate(results_economic_rounded)
