@@ -1,8 +1,11 @@
+from statistics import median
+
 import numpy
 import pandas as pd
-from pandas import Index
+from pandas import Index, DataFrame
 from sklearn import svm
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
 
 topics = ('kosovo', 'albanija', 'vojska', 'crkva', 'lgbt', 'beograd', 'policija',
           'korupcija', 'evropa', 'ukrajina', 'putin', 'rusija', 'nato', 'amerika')
@@ -29,6 +32,7 @@ def print_data(predictions, actual_data):
         print('result: %.2f, actual: %.2f, error: %.2f' % (prediction, actual, error))
     avg_error = sum(errors) / len(errors)
     print('Avg error %.2f' % avg_error)
+    print('Median error: % .2f' % median(errors))
     print('---------------------------------------------------------------------')
 
 
@@ -40,13 +44,21 @@ data = get_data(train)
 support_vector_machine_social = svm.SVR(verbose=True)
 support_vector_machine_economy = svm.SVR(verbose=True)
 
-support_vector_machine_social.fit(data, train['social_policy'])
-support_vector_machine_economy.fit(data, train['economic_policy'])
+parameters = {'kernel': ('linear', 'rbf'), 'C': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+clf_social = GridSearchCV(support_vector_machine_social, parameters)
+clf_social.fit(data, train['social_policy'])
+clf_economy = GridSearchCV(support_vector_machine_social, parameters)
+clf_economy.fit(data, train['economic_policy'])
 
 test_data = get_data(test)
 
-social_predictions = support_vector_machine_social.predict(test_data)
-economic_predictions = support_vector_machine_economy.predict(test_data)
+social_predictions = clf_social.predict(test_data)
+economic_predictions = clf_economy.predict(test_data)
 
 print_data(social_predictions, test['social_policy'])
 print_data(economic_predictions, test['economic_policy'])
+print(clf_social.best_params_)
+print(clf_economy.best_params_)
+
+#print(DataFrame(clf_social.cv_results_).to_string())
+#print(DataFrame(clf_economy.cv_results_).to_string())
