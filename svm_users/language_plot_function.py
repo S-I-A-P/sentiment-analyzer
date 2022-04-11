@@ -86,16 +86,35 @@ def compass_language_plot(data):
 
 # Defining main function
 def main():
-	with open('tweets_with_sentiment.csv', newline='', encoding='utf-8') as csvfile:
+	with open('tweets_with_sentiment_2.csv', newline='', encoding='utf-8') as csvfile:
 		distinct_dict = dict()
+		user_dict = dict()
 		obj_array = []
 		reader = csv.DictReader(csvfile)
 		for row in reader:
 			if row['username'] not in distinct_dict:
-				obj = InputLanguagePlotObject(row['username'], float(row['economic_policy']), float(row['social_policy']), row['language'])
-				distinct_dict[row['username']] = obj
-				print({ 'username': row['username'], 'economic_policy': row['economic_policy'], 'social_policy': row['social_policy'], 'language': row['language']})
-				obj_array.append(obj)
+				user_dict[row['username']] = (float(row['economic_policy']), float(row['social_policy']))
+				distinct_dict[row['username']] = {}
+			if row['language'] not in distinct_dict[row['username']]:
+				distinct_dict[row['username']][row['language']] = 1
+			else:
+				distinct_dict[row['username']][row['language']] += 1
+		
+
+		# Odabrati najcesce koriscen jezik kao glavni za mapiranje
+		for username in distinct_dict:
+			print(username)
+			max = 0
+			lan = ''
+			for language in distinct_dict[username]:
+				print({language: distinct_dict[username][language]})
+				if max < distinct_dict[username][language]:
+					max = distinct_dict[username][language]
+					lan = language
+			obj = InputLanguagePlotObject(username, user_dict[username][0], user_dict[username][1], lan)
+			print({ 'username': obj.username, 'economic_policy': obj.x_coord, 'social_policy': obj.y_coord, 'language': obj.tweet_language})
+			obj_array.append(obj)
+
 		print(len(obj_array))
 		compass_language_plot(obj_array)
 			
