@@ -16,10 +16,13 @@ plt.show()
 sb.countplot(x='language', data=df)
 plt.show()
 sb.set(font_scale=0.8)
-sb.pairplot(df, hue="sentiment_label", diag_kind="hist", aspect=2)
+#sb.pairplot(df, hue="sentiment_label", diag_kind="hist", aspect=2)
 for t in const.topics:
     filtered_by_topic = df[df["topic"]==t]
-    sb.displot(filtered_by_topic, x='economic_policy', hue='sentiment_label', height=5, aspect=1, multiple="dodge", kde=True)
-
+    sb.displot(filtered_by_topic, x='social_policy', hue='sentiment_label', height=5, aspect=1, multiple="dodge", kde=True)
+    plt.title(t)
+    plt.show()
+    sb.displot(filtered_by_topic, x='economic_policy', hue='sentiment_label', height=5, aspect=1, multiple="dodge",
+               kde=True)
     plt.title(t)
     plt.show()
